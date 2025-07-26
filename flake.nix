@@ -47,7 +47,9 @@
             inputsFrom = [ config.flake-root.devShell ];
 
             packages = with pkgs; [
+              direnv
               bun
+              nodejs_20
             ];
 
             env = {

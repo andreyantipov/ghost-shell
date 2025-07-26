@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ghost Shell Demo</title>
+  <link rel="stylesheet" href="./shell-example.css" />
+</head>
+<body>
+  <div id="app" class="shell-container">
+    <header class="shell-header">
+      <h1>Ghost Shell Demo</h1>
+      <div class="shell-actions">
+        <button class="btn" id="add-panel">Add Panel</button>
+      </div>
+    </header>
+    
+    <main class="shell-body">
+      <div class="panels-container" id="panels-container">
+        <!-- Panels will be rendered here -->
+      </div>
+    </main>
+    
+    <footer class="status-bar">
+      <div class="status-item">
+        <span id="panel-count">0 panels</span>
+      </div>
+      <div class="status-item">
+        <span id="tab-count">0 tabs</span>
+      </div>
+    </footer>
+  </div>
+  <script type="module" src="./shell-example.ts"></script>
+</body>
+</html>
