@@ -1,14 +1,14 @@
 import { createMachine, assign } from 'xstate';
-import { ID, ShellEvent, ShellState, ShellAction } from '~/lib/constants';
+import { SHELL_ID, ShellEvent, ShellState, ShellAction } from './shell.constants';
+import type { ShellContext, ShellEventObject } from './shell.types';
 import { panelMachine } from '../panel/panel.machine';
-import type { ShellContext, ShellEventObject } from '~/lib/types';
 
 export const shellMachine = createMachine({
   types: {} as {
     context: ShellContext;
     events: ShellEventObject;
   },
-  id: ID.SHELL,
+  id: SHELL_ID,
   initial: ShellState.IDLE,
   context: {
     panels: [], // panel ids

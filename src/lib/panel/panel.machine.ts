@@ -1,14 +1,14 @@
 import { createMachine, assign } from 'xstate';
-import { ID, PanelState, PanelEvent, PanelAction } from '~/lib/constants';
+import { PANEL_ID, PanelState, PanelEvent, PanelAction } from './panel.constants';
+import type { PanelContext, PanelEventObject } from './panel.types';
 import { tabMachine } from '../tab/tab.machine';
-import type { PanelContext, PanelEventObject } from '~/lib/types';
 
 export const panelMachine = createMachine({
   types: {} as {
     context: PanelContext;
     events: PanelEventObject;
   },
-  id: ID.PANEL,
+  id: PANEL_ID,
   initial: PanelState.ACTIVE,
   context: {
     tabs: [],

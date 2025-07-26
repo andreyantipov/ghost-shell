@@ -1,30 +1,30 @@
 import { describe, it, expect, vi } from 'vitest';
-import { Shell } from './Shell';
+import { LayoutManager } from './LayoutManager';
 
-describe('Shell subscription tests', () => {
+describe('LayoutManager subscription tests', () => {
   it('should trigger subscription on addPanel', async () => {
-    const shell = new Shell();
+    const layoutManager = new LayoutManager();
     const listener = vi.fn();
     
     // Subscribe to changes
-    shell.subscribe(listener);
+    layoutManager.subscribe(listener);
     
     // Wait a bit for subscription to be ready
     await new Promise(resolve => setTimeout(resolve, 10));
     
     // Add a panel
-    shell.addPanel('test-panel');
+    layoutManager.addPanel('test-panel');
     
     // Check if listener was called
     expect(listener).toHaveBeenCalled();
   });
   
   it('should have panel in state after addPanel', () => {
-    const shell = new Shell();
+    const layoutManager = new LayoutManager();
     
-    shell.addPanel('test-panel');
+    layoutManager.addPanel('test-panel');
     
-    const state = shell.getSnapshot();
+    const state = layoutManager.getSnapshot();
     expect(state.context.panels).toContain('test-panel');
   });
 });

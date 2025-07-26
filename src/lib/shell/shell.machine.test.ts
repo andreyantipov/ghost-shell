@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { createActor } from 'xstate';
 import { shellMachine } from './shell.machine';
-import { ShellEvent } from '~/lib/constants';
+import { ShellEvent } from './shell.constants';
 
 describe('shellMachine', () => {
   it('should start in idle state', () => {

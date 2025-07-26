@@ -1,13 +1,13 @@
 import { createMachine } from 'xstate';
-import { ID } from '~/lib/constants';
-import type { TabContext } from '~/lib/types';
+import { TAB_ID } from './tab.constants';
+import type { TabContext } from './tab.types';
 
 export const tabMachine = createMachine({
   types: {} as {
     context: TabContext;
     input: TabContext;
   },
-  id: ID.TAB,
+  id: TAB_ID,
   initial: 'active',
   context: ({ input }) => ({
     id: input?.id ?? '',

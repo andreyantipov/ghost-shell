@@ -1,15 +1,15 @@
-import { Shell } from "~/Shell";
+import { LayoutManager } from "~/layout-manager/LayoutManager";
 
 class ShellUI {
-  private shell: Shell;
+  private layoutManager: LayoutManager;
   private panelIdCounter = 0;
   private tabIdCounter = 0;
 
   constructor() {
-    this.shell = new Shell();
+    this.layoutManager = new LayoutManager();
 
     // Subscribe to shell changes
-    this.shell.subscribe(() => {
+    this.layoutManager.subscribe(() => {
       console.log("Shell state changed, triggering render");
       this.render();
     });
@@ -28,31 +28,31 @@ class ShellUI {
   private addPanel() {
     const panelId = `panel-${++this.panelIdCounter}`;
     console.log(`Adding panel: ${panelId}`);
-    this.shell.addPanel(panelId);
+    this.layoutManager.addPanel(panelId);
   }
 
   private addTab(panelId: string) {
     const tabId = `tab-${++this.tabIdCounter}`;
     const title = `Tab ${this.tabIdCounter}`;
     console.log(`Adding tab ${tabId} to panel ${panelId}`);
-    this.shell.addTab(panelId, tabId, title);
+    this.layoutManager.addTab(panelId, tabId, title);
   }
 
   private removePanel(panelId: string) {
-    this.shell.removePanel(panelId);
+    this.layoutManager.removePanel(panelId);
   }
 
   private removeTab(panelId: string, tabId: string) {
-    this.shell.removeTab(panelId, tabId);
+    this.layoutManager.removeTab(panelId, tabId);
   }
 
   private activateTab(panelId: string, tabId: string) {
-    this.shell.activateTab(panelId, tabId);
+    this.layoutManager.activateTab(panelId, tabId);
   }
 
   private render() {
     console.log("Render called");
-    const state = this.shell.getSnapshot();
+    const state = this.layoutManager.getSnapshot();
     console.log("Current shell state:", state.context);
     const panelsContainer = document.getElementById("panels-container");
 
@@ -79,7 +79,7 @@ class ShellUI {
 
     // Render each panel
     state.context.panels.forEach((panelId) => {
-      const panelSnapshot = this.shell.getPanelSnapshot(panelId);
+      const panelSnapshot = this.layoutManager.getPanelSnapshot(panelId);
       if (panelSnapshot) {
         const panelElement = this.createPanelElement(panelId, panelSnapshot);
         panelsContainer.appendChild(panelElement);
@@ -211,7 +211,7 @@ class ShellUI {
     if (tabCount) {
       let totalTabs = 0;
       state.context.panels.forEach((panelId: string) => {
-        const panelSnapshot = this.shell.getPanelSnapshot(panelId);
+        const panelSnapshot = this.layoutManager.getPanelSnapshot(panelId);
         if (panelSnapshot) {
           totalTabs += panelSnapshot.context.tabs.length;
         }

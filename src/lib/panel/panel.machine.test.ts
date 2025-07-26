@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { createActor } from 'xstate';
 import { panelMachine } from './panel.machine';
-import { PanelEvent } from '~/lib/constants';
+import { PanelEvent } from './panel.constants';
 
 describe('panelMachine', () => {
   it('should start in active state', () => {

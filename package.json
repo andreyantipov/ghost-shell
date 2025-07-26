@@ -21,7 +21,8 @@
     "test:watch": "npx vitest --watch",
     "test:ui": "npx vitest --ui --watch",
     "test:coverage": "npx vitest --coverage",
-    "test:bun": "bun test"
+    "test:bun": "bun test",
+    "preview": "vite preview"
   },
   "module": "src/index.ts",
   "type": "module",
