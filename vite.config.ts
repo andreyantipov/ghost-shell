@@ -6,4 +6,8 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   // Set base path for GitHub Pages (replace 'ghost-shell' with your repo name)
   base: process.env.GITHUB_PAGES ? '/ghost-shell/' : '/',
+  build: {
+    outDir: '../dist',
+    emptyOutDir: true,
+  },
 })
