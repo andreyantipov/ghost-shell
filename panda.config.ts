@@ -28,5 +28,5 @@ export default defineConfig({
       overflow: 'hidden'
     }
   },
-  outdir: "./src/design/__generated__/styled-system",
+  outdir: "./src/shared/ui/__generated__/styled-system",
 });
