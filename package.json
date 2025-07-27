@@ -1,7 +1,7 @@
 {
   "name": "ghost-shell",
   "version": "1.0.0",
-  "description": "A headless UI shell framework designed to build modular and composable web applications",
+  "description": "UI shell lib",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -22,23 +22,27 @@
     "test:ui": "npx vitest --ui --watch",
     "test:coverage": "npx vitest --coverage",
     "test:bun": "bun test",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "panda": "panda",
+    "panda:watch": "panda --watch",
+    "prepare": "panda codegen"
   },
   "module": "src/index.ts",
   "type": "module",
   "devDependencies": {
+    "@pandacss/dev": "^0.54.0",
     "@types/bun": "latest",
     "@vitest/ui": "^3.2.4",
-    "vitest": "^3.2.4",
     "vite": "^7.0.6",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/ghost-shell.git"
+    "url": "https://github.com/andreyantipov/ghost-shell.git"
   },
   "author": "Andrei Antipov",
   "license": "MIT",

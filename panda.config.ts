@@ -1,0 +1,32 @@
+import { defineConfig } from "@pandacss/dev";
+import { shell } from "./src/widgets/shell/shell.styles";
+import { button } from "./src/widgets/button/button.styles";
+import { panel } from "./src/widgets/panel/panel.styles";
+
+export default defineConfig({
+  preflight: true,
+  include: ["./src/**/*.{js,jsx,ts,tsx}", "./demo/**/*.{js,jsx,ts,tsx}"],
+  exclude: [],
+  staticCss: {
+    recipes: '*',
+  },
+  theme: {
+    extend: {
+      recipes: {
+        shell,
+        button,
+        panel
+      }
+    }
+  },
+  globalCss: {
+    'body': {
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      background: '#1e1e1e',
+      color: '#e0e0e0',
+      height: '100vh',
+      overflow: 'hidden'
+    }
+  },
+  outdir: "./src/design/__generated__/styled-system",
+});

@@ -28,6 +28,8 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .direnv
 .claude
 *.tsbuildinfo
+__generated__
 
 # Finder (MacOS) folder config
 .DS_Store
+

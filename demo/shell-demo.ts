@@ -1,4 +1,5 @@
 import { LayoutManager } from "~/layout-manager/LayoutManager";
+// CSS is handled by Panda CSS generated styles
 
 class ShellUI {
   private layoutManager: LayoutManager;
@@ -71,9 +72,9 @@ class ShellUI {
 
     if (state.context.panels.length === 0) {
       panelsContainer.innerHTML = `
-        <div class="empty-state">
-          <h3>No panels open</h3>
-          <p>Click "Add Panel" to create a new panel</p>
+        <div class="panel__emptyState">
+          <h3 class="panel__emptyStateTitle">No panels open</h3>
+          <p class="panel__emptyStateText">Click "Add Panel" to create a new panel</p>
         </div>
       `;
       return;
@@ -91,30 +92,30 @@ class ShellUI {
 
   private createPanelElement(panelId: string, panelSnapshot: any): HTMLElement {
     const panel = document.createElement("div");
-    panel.className = "panel";
+    panel.className = "panel__root";
     panel.dataset.panelId = panelId;
 
     // Panel header
     const header = document.createElement("div");
-    header.className = "panel-header";
+    header.className = "panel__header";
 
     const title = document.createElement("div");
-    title.className = "panel-title";
+    title.className = "panel__title";
     title.textContent = panelId;
 
     const actions = document.createElement("div");
-    actions.className = "panel-actions";
+    actions.className = "panel__actions";
 
     // Add tab button
     const addTabBtn = document.createElement("button");
-    addTabBtn.className = "icon-btn";
+    addTabBtn.className = "button button--variant_icon";
     addTabBtn.innerHTML = "+";
     addTabBtn.title = "Add new tab";
     addTabBtn.onclick = () => this.addTab(panelId);
 
     // Close panel button
     const closePanelBtn = document.createElement("button");
-    closePanelBtn.className = "icon-btn";
+    closePanelBtn.className = "button button--variant_icon";
     closePanelBtn.innerHTML = "×";
     closePanelBtn.title = "Close panel";
     closePanelBtn.onclick = () => this.removePanel(panelId);
@@ -126,7 +127,7 @@ class ShellUI {
 
     // Tabs container
     const tabsContainer = document.createElement("div");
-    tabsContainer.className = "tabs-container";
+    tabsContainer.className = "panel__tabs";
 
     if (panelSnapshot.context.tabs.length > 0) {
       panelSnapshot.context.tabs.forEach((tabId: string) => {
@@ -146,13 +147,13 @@ class ShellUI {
 
     // Panel content
     const content = document.createElement("div");
-    content.className = "panel-content";
+    content.className = "panel__content";
 
     if (panelSnapshot.context.tabs.length === 0) {
       content.innerHTML = `
-        <div class="empty-state">
-          <h3>No tabs open</h3>
-          <p>Click "+" to add a new tab</p>
+        <div class="panel__emptyState">
+          <h3 class="panel__emptyStateTitle">No tabs open</h3>
+          <p class="panel__emptyStateText">Click "+" to add a new tab</p>
         </div>
       `;
     } else if (panelSnapshot.context.activeTab) {
@@ -179,16 +180,16 @@ class ShellUI {
     isActive: boolean
   ): HTMLElement {
     const tab = document.createElement("div");
-    tab.className = isActive ? "tab active" : "tab";
+    tab.className = isActive ? "panel__tab panel__tab--tabState_active" : "panel__tab";
     tab.dataset.tabId = tabId;
 
     const tabTitle = document.createElement("span");
-    tabTitle.className = "tab-title";
+    tabTitle.className = "panel__tabTitle";
     tabTitle.textContent = title;
     tabTitle.onclick = () => this.activateTab(panelId, tabId);
 
     const closeBtn = document.createElement("button");
-    closeBtn.className = "tab-close";
+    closeBtn.className = "panel__tabClose";
     closeBtn.innerHTML = "×";
     closeBtn.onclick = (e) => {
       e.stopPropagation();
@@ -228,19 +229,19 @@ class ShellUI {
       return;
     }
 
-    const statusBar = document.querySelector(".status-bar");
+    const statusBar = document.querySelector(".shell__statusBar");
     if (!statusBar) {
       return;
     }
 
     // Clear existing dynamic items (keep panel-count and tab-count)
-    const dynamicItems = statusBar.querySelectorAll(".status-item.dynamic");
+    const dynamicItems = statusBar.querySelectorAll(".shell__statusItem--statusItemType_dynamic");
     dynamicItems.forEach(item => item.remove());
 
     // Add status text if different from default
     if (statusBarSnapshot.context.status !== "Ready") {
       const statusItem = document.createElement("div");
-      statusItem.className = "status-item dynamic";
+      statusItem.className = "shell__statusItem shell__statusItem--statusItemType_dynamic";
       statusItem.innerHTML = `<span>${statusBarSnapshot.context.status}</span>`;
       statusBar.insertBefore(statusItem, statusBar.firstChild);
     }
@@ -248,7 +249,7 @@ class ShellUI {
     // Add custom status bar items
     statusBarSnapshot.context.items.forEach((item: any) => {
       const statusItem = document.createElement("div");
-      statusItem.className = "status-item dynamic";
+      statusItem.className = "shell__statusItem shell__statusItem--statusItemType_dynamic";
       if (item.onClick) {
         statusItem.style.cursor = "pointer";
         statusItem.onclick = item.onClick;

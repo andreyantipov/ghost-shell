@@ -27,7 +27,8 @@
     "noPropertyAccessFromIndexSignature": false,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["src/*"],
+      "@ui/*": ["src/design/__generated__/styled-system/*"],
     }
   }
 }
