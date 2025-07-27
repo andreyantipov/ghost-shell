@@ -31,8 +31,6 @@ jobs:
         
       - name: Build React Demo
         run: bun nx build react-demo
-        env:
-          BASE_HREF: /ghost-shell/
         
       - name: Setup Pages
         uses: actions/configure-pages@v4
