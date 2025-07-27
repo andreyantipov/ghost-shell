@@ -7,6 +7,7 @@ import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../../node_modules/.vite/packages/apps/react-demo',
+  base: process.env.BASE_HREF || '/',
   server: {
     port: 4200,
     host: 'localhost',
