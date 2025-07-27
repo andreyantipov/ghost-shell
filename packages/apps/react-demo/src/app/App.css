@@ -9,12 +9,12 @@
 }
 
 .title-bar {
-  height: 30px;
+  height: 35px;
   background-color: #2d2d30;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12px;
+  padding: 0 16px;
   -webkit-app-region: drag;
   user-select: none;
   border-bottom: 1px solid #191919;
@@ -53,6 +53,26 @@
 .title-bar-button:hover {
   background-color: #484848;
   border-color: #5a5a5a;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background-color: #3c3c3c;
+  border: 1px solid #464647;
+  border-radius: 3px;
+  color: #cccccc;
+  font-size: 12px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.github-link:hover {
+  background-color: #484848;
+  border-color: #5a5a5a;
+  color: #ffffff;
 }
 
 .main-container {
