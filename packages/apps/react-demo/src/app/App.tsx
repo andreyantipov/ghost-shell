@@ -270,7 +270,7 @@ export const App: React.FC = () => {
     <div className="app">
       <div className="title-bar">
         <div className="title-bar-content">
-          <span className="title">👻 Ghost Shell - VSCode Demo</span>
+          <span className="title">👻 Ghost Shell Demo --- More details at: <a href="https://github.com/andreyantipov/ghost-shell" target="_blank">ghost-shell</a></span>
           <div className="title-bar-actions">
             <a 
               href="https://github.com/andreyantipov/ghost-shell" 
