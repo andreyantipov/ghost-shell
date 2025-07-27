@@ -1,0 +1,9 @@
+{
+  "run": {
+    "command": "nx run react-demo:dev",
+    "startTime": "2025-07-27T14:23:15.969Z",
+    "endTime": "2025-07-27T14:28:07.793Z",
+    "inner": false
+  },
+  "tasks": []
+}

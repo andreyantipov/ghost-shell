@@ -33,3 +33,6 @@ __generated__
 # Finder (MacOS) folder config
 .DS_Store
 
+
+vite.config.*.timestamp*
+vitest.config.*.timestamp*

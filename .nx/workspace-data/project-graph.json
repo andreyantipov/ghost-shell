@@ -1,0 +1,739 @@
+{
+  "nodes": {
+    "react-demo": {
+      "name": "react-demo",
+      "type": "app",
+      "data": {
+        "root": "packages/apps/react-demo",
+        "targets": {
+          "lint": {
+            "cache": true,
+            "options": {
+              "cwd": "packages/apps/react-demo",
+              "command": "eslint ."
+            },
+            "inputs": [
+              "default",
+              "^default",
+              "{workspaceRoot}/eslint.base.config.mjs",
+              "{workspaceRoot}/packages/apps/react-demo/eslint.config.mjs",
+              "{workspaceRoot}/tools/eslint-rules/**/*",
+              {
+                "externalDependencies": [
+                  "eslint"
+                ]
+              }
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "metadata": {
+              "technologies": [
+                "eslint"
+              ],
+              "description": "Runs ESLint on project",
+              "help": {
+                "command": "bun eslint --help",
+                "example": {
+                  "options": {
+                    "max-warnings": 0
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "test": {
+            "options": {
+              "cwd": "packages/apps/react-demo",
+              "command": "vitest"
+            },
+            "cache": true,
+            "inputs": [
+              "default",
+              "^production",
+              {
+                "externalDependencies": [
+                  "vitest"
+                ]
+              },
+              {
+                "env": "CI"
+              }
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/packages/apps/react-demo"
+            ],
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Run Vite tests",
+              "help": {
+                "command": "bun vitest --help",
+                "example": {
+                  "options": {
+                    "bail": 1,
+                    "coverage": true
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "build": {
+            "options": {
+              "cwd": "packages/apps/react-demo",
+              "command": "vite build"
+            },
+            "cache": true,
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production",
+              {
+                "externalDependencies": [
+                  "vite"
+                ]
+              }
+            ],
+            "outputs": [
+              "{workspaceRoot}/dist/packages/apps/react-demo"
+            ],
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Run Vite build",
+              "help": {
+                "command": "bun vite build --help",
+                "example": {
+                  "options": {
+                    "sourcemap": true,
+                    "manifest": "manifest.json"
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "serve": {
+            "continuous": true,
+            "options": {
+              "cwd": "packages/apps/react-demo",
+              "command": "vite"
+            },
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Starts Vite dev server",
+              "help": {
+                "command": "bun vite --help",
+                "example": {
+                  "options": {
+                    "port": 3000
+                  }
+                }
+              },
+              "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "dev": {
+            "continuous": true,
+            "options": {
+              "cwd": "packages/apps/react-demo",
+              "command": "vite"
+            },
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Starts Vite dev server",
+              "help": {
+                "command": "bun vite --help",
+                "example": {
+                  "options": {
+                    "port": 3000
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "preview": {
+            "continuous": true,
+            "dependsOn": [
+              "build"
+            ],
+            "options": {
+              "cwd": "packages/apps/react-demo",
+              "command": "vite preview"
+            },
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Locally preview Vite production build",
+              "help": {
+                "command": "bun vite preview --help",
+                "example": {
+                  "options": {
+                    "port": 3000
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "serve-static": {
+            "continuous": true,
+            "executor": "@nx/web:file-server",
+            "options": {
+              "buildTarget": "build",
+              "spa": true
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "typecheck": {
+            "cache": true,
+            "inputs": [
+              "production",
+              "^production",
+              {
+                "externalDependencies": [
+                  "typescript"
+                ]
+              }
+            ],
+            "options": {
+              "cwd": "packages/apps/react-demo",
+              "command": "tsc --noEmit -p tsconfig.app.json"
+            },
+            "metadata": {
+              "description": "Runs type-checking for the project.",
+              "technologies": [
+                "typescript"
+              ],
+              "help": {
+                "command": "bun tsc -p tsconfig.app.json --help",
+                "example": {
+                  "options": {
+                    "noEmit": true
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "build-deps": {
+            "dependsOn": [
+              "^build"
+            ],
+            "configurations": {},
+            "options": {},
+            "parallelism": true,
+            "executor": "nx:noop"
+          },
+          "watch-deps": {
+            "continuous": true,
+            "dependsOn": [
+              "build-deps"
+            ],
+            "executor": "nx:run-commands",
+            "options": {
+              "command": "bun nx watch --projects react-demo --includeDependentProjects -- bun nx build-deps react-demo"
+            },
+            "configurations": {},
+            "parallelism": true
+          }
+        },
+        "projectType": "application",
+        "metadata": {},
+        "name": "react-demo",
+        "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "packages/apps/react-demo/src",
+        "tags": [],
+        "implicitDependencies": []
+      }
+    },
+    "widgets": {
+      "name": "widgets",
+      "type": "lib",
+      "data": {
+        "root": "packages/libs/widgets",
+        "targets": {
+          "lint": {
+            "cache": true,
+            "options": {
+              "cwd": "packages/libs/widgets",
+              "command": "eslint ."
+            },
+            "inputs": [
+              "default",
+              "^default",
+              "{workspaceRoot}/eslint.base.config.mjs",
+              "{workspaceRoot}/packages/libs/widgets/eslint.config.mjs",
+              "{workspaceRoot}/tools/eslint-rules/**/*",
+              {
+                "externalDependencies": [
+                  "eslint"
+                ]
+              }
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "metadata": {
+              "technologies": [
+                "eslint"
+              ],
+              "description": "Runs ESLint on project",
+              "help": {
+                "command": "bun eslint --help",
+                "example": {
+                  "options": {
+                    "max-warnings": 0
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "test": {
+            "options": {
+              "cwd": "packages/libs/widgets",
+              "command": "vitest"
+            },
+            "cache": true,
+            "inputs": [
+              "default",
+              "^production",
+              {
+                "externalDependencies": [
+                  "vitest"
+                ]
+              },
+              {
+                "env": "CI"
+              }
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/packages/libs/widgets"
+            ],
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Run Vite tests",
+              "help": {
+                "command": "bun vitest --help",
+                "example": {
+                  "options": {
+                    "bail": 1,
+                    "coverage": true
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "build": {
+            "options": {
+              "cwd": "packages/libs/widgets",
+              "command": "vite build"
+            },
+            "cache": true,
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production",
+              {
+                "externalDependencies": [
+                  "vite"
+                ]
+              }
+            ],
+            "outputs": [
+              "{workspaceRoot}/dist/packages/libs/widgets"
+            ],
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Run Vite build",
+              "help": {
+                "command": "bun vite build --help",
+                "example": {
+                  "options": {
+                    "sourcemap": true,
+                    "manifest": "manifest.json"
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "serve": {
+            "continuous": true,
+            "options": {
+              "cwd": "packages/libs/widgets",
+              "command": "vite"
+            },
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Starts Vite dev server",
+              "help": {
+                "command": "bun vite --help",
+                "example": {
+                  "options": {
+                    "port": 3000
+                  }
+                }
+              },
+              "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "dev": {
+            "continuous": true,
+            "options": {
+              "cwd": "packages/libs/widgets",
+              "command": "vite"
+            },
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Starts Vite dev server",
+              "help": {
+                "command": "bun vite --help",
+                "example": {
+                  "options": {
+                    "port": 3000
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "preview": {
+            "continuous": true,
+            "dependsOn": [
+              "build"
+            ],
+            "options": {
+              "cwd": "packages/libs/widgets",
+              "command": "vite preview"
+            },
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Locally preview Vite production build",
+              "help": {
+                "command": "bun vite preview --help",
+                "example": {
+                  "options": {
+                    "port": 3000
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "serve-static": {
+            "continuous": true,
+            "executor": "@nx/web:file-server",
+            "options": {
+              "buildTarget": "build",
+              "spa": true
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "typecheck": {
+            "cache": true,
+            "inputs": [
+              "production",
+              "^production",
+              {
+                "externalDependencies": [
+                  "typescript"
+                ]
+              }
+            ],
+            "options": {
+              "cwd": "packages/libs/widgets",
+              "command": "tsc --noEmit -p tsconfig.lib.json"
+            },
+            "metadata": {
+              "description": "Runs type-checking for the project.",
+              "technologies": [
+                "typescript"
+              ],
+              "help": {
+                "command": "bun tsc -p tsconfig.lib.json --help",
+                "example": {
+                  "options": {
+                    "noEmit": true
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "build-deps": {
+            "dependsOn": [
+              "^build"
+            ],
+            "configurations": {},
+            "options": {},
+            "parallelism": true,
+            "executor": "nx:noop"
+          },
+          "watch-deps": {
+            "continuous": true,
+            "dependsOn": [
+              "build-deps"
+            ],
+            "executor": "nx:run-commands",
+            "options": {
+              "command": "bun nx watch --projects widgets --includeDependentProjects -- bun nx build-deps widgets"
+            },
+            "configurations": {},
+            "parallelism": true
+          }
+        },
+        "projectType": "library",
+        "metadata": {
+          "targetGroups": {},
+          "js": {
+            "packageName": "widgets",
+            "packageMain": "./index.js",
+            "isInPackageManagerWorkspaces": false
+          }
+        },
+        "name": "widgets",
+        "tags": [
+          "npm:private"
+        ],
+        "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "packages/libs/widgets/src",
+        "implicitDependencies": []
+      }
+    },
+    "core": {
+      "name": "core",
+      "type": "lib",
+      "data": {
+        "root": "packages/libs/core",
+        "targets": {
+          "lint": {
+            "cache": true,
+            "options": {
+              "cwd": "packages/libs/core",
+              "command": "eslint ."
+            },
+            "inputs": [
+              "default",
+              "^default",
+              "{workspaceRoot}/eslint.base.config.mjs",
+              "{workspaceRoot}/packages/libs/core/eslint.config.mjs",
+              "{workspaceRoot}/tools/eslint-rules/**/*",
+              {
+                "externalDependencies": [
+                  "eslint"
+                ]
+              }
+            ],
+            "outputs": [
+              "{options.outputFile}"
+            ],
+            "metadata": {
+              "technologies": [
+                "eslint"
+              ],
+              "description": "Runs ESLint on project",
+              "help": {
+                "command": "bun eslint --help",
+                "example": {
+                  "options": {
+                    "max-warnings": 0
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "test": {
+            "options": {
+              "cwd": "packages/libs/core",
+              "command": "vitest"
+            },
+            "cache": true,
+            "inputs": [
+              "default",
+              "^production",
+              {
+                "externalDependencies": [
+                  "vitest"
+                ]
+              },
+              {
+                "env": "CI"
+              }
+            ],
+            "outputs": [
+              "{workspaceRoot}/coverage/packages/libs/core"
+            ],
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Run Vite tests",
+              "help": {
+                "command": "bun vitest --help",
+                "example": {
+                  "options": {
+                    "bail": 1,
+                    "coverage": true
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "typecheck": {
+            "cache": true,
+            "inputs": [
+              "production",
+              "^production",
+              {
+                "externalDependencies": [
+                  "typescript"
+                ]
+              }
+            ],
+            "options": {
+              "cwd": "packages/libs/core",
+              "command": "tsc --noEmit -p tsconfig.lib.json"
+            },
+            "metadata": {
+              "description": "Runs type-checking for the project.",
+              "technologies": [
+                "typescript"
+              ],
+              "help": {
+                "command": "bun tsc -p tsconfig.lib.json --help",
+                "example": {
+                  "options": {
+                    "noEmit": true
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "build-deps": {
+            "dependsOn": [
+              "^build"
+            ],
+            "configurations": {},
+            "options": {},
+            "parallelism": true,
+            "executor": "nx:noop"
+          },
+          "watch-deps": {
+            "continuous": true,
+            "dependsOn": [
+              "build-deps"
+            ],
+            "executor": "nx:run-commands",
+            "options": {
+              "command": "bun nx watch --projects core --includeDependentProjects -- bun nx build-deps core"
+            },
+            "configurations": {},
+            "parallelism": true
+          }
+        },
+        "metadata": {},
+        "name": "core",
+        "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "packages/libs/core/src",
+        "projectType": "library",
+        "tags": [],
+        "implicitDependencies": []
+      }
+    }
+  },
+  "externalNodes": {},
+  "dependencies": {
+    "react-demo": [
+      {
+        "source": "react-demo",
+        "target": "core",
+        "type": "static"
+      }
+    ],
+    "widgets": [
+      {
+        "source": "widgets",
+        "target": "core",
+        "type": "static"
+      }
+    ],
+    "core": [
+      {
+        "source": "core",
+        "target": "widgets",
+        "type": "static"
+      }
+    ]
+  },
+  "version": "6.0",
+  "errors": [],
+  "computedAt": 1753626956686
+}

@@ -1,6 +1,9 @@
 {
-    "recommendations": [
-        "statelyai.stately-vscode",
-        "mkhl.direnv"
-    ]
+  "recommendations": [
+    "statelyai.stately-vscode",
+    "nrwl.angular-console",
+    "mkhl.direnv",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint"
+  ]
 }
