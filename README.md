@@ -1,5 +1,7 @@
 # 👻 Ghost Shell
 
+> 🚧 **Work in Progress** - This project is under active development. Nothing is stable yet! 🚧
+
 A headless UI layout manager for building modular, dockable web interfaces powered by XState. Create VSCode-like layouts with panels, tabs, and widgets - fully customizable and framework-agnostic.
 
 ## Features
@@ -12,6 +14,17 @@ A headless UI layout manager for building modular, dockable web interfaces power
 
 ## Quick Start
 
+⚠️ **Not published to npm yet!** For now, clone and explore the demo.
+
+```bash
+# Clone the repo
+git clone https://github.com/andreyantipov/ghost-shell.git
+cd ghost-shell
+npm install
+nx serve react-demo
+```
+
+Future installation (when published):
 ```bash
 npm install @ghost-shell/core @ghost-shell/widgets
 ```
