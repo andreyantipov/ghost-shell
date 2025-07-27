@@ -16,6 +16,7 @@ class ShellUI {
 
     this.setupEventListeners();
     this.render();
+    this.demonstrateStatusBar();
   }
 
   private setupEventListeners() {
@@ -63,6 +64,7 @@ class ShellUI {
 
     // Update status bar
     this.updateStatusBar(state);
+    this.renderStatusBar();
 
     // Clear and render panels
     panelsContainer.innerHTML = "";
@@ -218,6 +220,77 @@ class ShellUI {
       });
       tabCount.textContent = `${totalTabs} tab${totalTabs !== 1 ? "s" : ""}`;
     }
+  }
+
+  private renderStatusBar() {
+    const statusBarSnapshot = this.layoutManager.getStatusBarSnapshot();
+    if (!statusBarSnapshot) {
+      return;
+    }
+
+    const statusBar = document.querySelector(".status-bar");
+    if (!statusBar) {
+      return;
+    }
+
+    // Clear existing dynamic items (keep panel-count and tab-count)
+    const dynamicItems = statusBar.querySelectorAll(".status-item.dynamic");
+    dynamicItems.forEach(item => item.remove());
+
+    // Add status text if different from default
+    if (statusBarSnapshot.context.status !== "Ready") {
+      const statusItem = document.createElement("div");
+      statusItem.className = "status-item dynamic";
+      statusItem.innerHTML = `<span>${statusBarSnapshot.context.status}</span>`;
+      statusBar.insertBefore(statusItem, statusBar.firstChild);
+    }
+
+    // Add custom status bar items
+    statusBarSnapshot.context.items.forEach((item: any) => {
+      const statusItem = document.createElement("div");
+      statusItem.className = "status-item dynamic";
+      if (item.onClick) {
+        statusItem.style.cursor = "pointer";
+        statusItem.onclick = item.onClick;
+      }
+      if (item.tooltip) {
+        statusItem.title = item.tooltip;
+      }
+      statusItem.innerHTML = `<span>${item.text}</span>`;
+      statusBar.appendChild(statusItem);
+    });
+  }
+
+  private demonstrateStatusBar() {
+    // Update status text
+    this.layoutManager.updateStatusBarText("Loading...");
+    
+    // Add some custom status bar items
+    this.layoutManager.addStatusBarItem({
+      id: "mode",
+      text: "🎨 Design Mode",
+      priority: 10,
+      tooltip: "Click to toggle mode",
+      onClick: () => {
+        console.log("Mode clicked!");
+        this.layoutManager.updateStatusBarText("Mode changed");
+        setTimeout(() => {
+          this.layoutManager.updateStatusBarText("Ready");
+        }, 2000);
+      }
+    });
+
+    this.layoutManager.addStatusBarItem({
+      id: "user",
+      text: "👤 User: Demo",
+      priority: 5,
+      tooltip: "Current user"
+    });
+
+    // Simulate async operation
+    setTimeout(() => {
+      this.layoutManager.updateStatusBarText("Ready");
+    }, 2000);
   }
 }
 

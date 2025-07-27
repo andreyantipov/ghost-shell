@@ -242,6 +242,16 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
+  padding: 0 8px;
+  transition: background 0.2s;
+}
+
+.status-item.dynamic {
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.status-item[style*="cursor: pointer"]:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Responsive */

@@ -1,7 +1,10 @@
-import { shellMachine } from '../lib/shell/shell.machine';
 import { createActor } from 'xstate';
-import { ShellEvent } from '../lib/shell/shell.constants';
-import { PanelEvent } from '../lib/panel/panel.constants';
+
+import { shellMachine } from '../widgets/shell/shell.machine';
+import { ShellEvent } from '../widgets/shell/shell.constants';
+import { PanelEvent } from '../widgets/panel/panel.constants';
+import { StatusBarEvent } from '../widgets/status-bar/status-bar.constants';
+import type { StatusBarItem } from '../widgets/status-bar/status-bar.types';
 
 export class LayoutManager {
   private shell = createActor(shellMachine);
@@ -61,5 +64,43 @@ export class LayoutManager {
       return null;
     }
     return panelActor.getSnapshot();
+  }
+
+  // Status Bar Methods
+  updateStatusBarText(text: string) {
+    const statusBarActor = this.shell.getSnapshot().context.statusBarActor;
+    if (statusBarActor) {
+      statusBarActor.send({ type: StatusBarEvent.UPDATE_STATUS, text });
+    }
+  }
+
+  addStatusBarItem(item: StatusBarItem) {
+    const statusBarActor = this.shell.getSnapshot().context.statusBarActor;
+    if (statusBarActor) {
+      statusBarActor.send({ type: StatusBarEvent.ADD_ITEM, item });
+    }
+  }
+
+  removeStatusBarItem(itemId: string) {
+    const statusBarActor = this.shell.getSnapshot().context.statusBarActor;
+    if (statusBarActor) {
+      statusBarActor.send({ type: StatusBarEvent.REMOVE_ITEM, itemId });
+    }
+  }
+
+  clearStatusBar() {
+    const statusBarActor = this.shell.getSnapshot().context.statusBarActor;
+    if (statusBarActor) {
+      statusBarActor.send({ type: StatusBarEvent.CLEAR });
+    }
+  }
+
+  getStatusBarSnapshot() {
+    const statusBarActor = this.shell.getSnapshot().context.statusBarActor;
+    if (!statusBarActor) {
+      console.warn('Status bar actor not found');
+      return null;
+    }
+    return statusBarActor.getSnapshot();
   }
 }

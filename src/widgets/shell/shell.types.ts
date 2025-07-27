@@ -8,4 +8,5 @@ export type ShellEventObject =
 export interface ShellContext {
   panels: string[];
   panelActors: Record<string, any>;
+  statusBarActor?: any;
 }

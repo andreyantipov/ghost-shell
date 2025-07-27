@@ -2,6 +2,7 @@ import { createMachine, assign } from 'xstate';
 import { SHELL_ID, ShellEvent, ShellState, ShellAction } from './shell.constants';
 import type { ShellContext, ShellEventObject } from './shell.types';
 import { panelMachine } from '../panel/panel.machine';
+import { statusBarMachine } from '../status-bar/status-bar.machine';
 
 export const shellMachine = createMachine({
   types: {} as {
@@ -13,7 +14,11 @@ export const shellMachine = createMachine({
   context: {
     panels: [], // panel ids
     panelActors: {} as Record<string, any>, // panelId -> actor
+    statusBarActor: undefined,
   },
+  entry: assign(({ spawn }) => ({
+    statusBarActor: spawn(statusBarMachine, { id: 'status-bar' }),
+  })),
   states: {
     [ShellState.IDLE]: {
       on: {
