@@ -31,7 +31,7 @@ jobs:
         run: npm ci
         
       - name: Build React Demo
-        run: npx nx run react-demo:build-gh-pages
+        run: npx nx build react-demo
         env:
           BASE_HREF: /ghost-shell/
         

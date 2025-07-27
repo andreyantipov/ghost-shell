@@ -6,6 +6,19 @@
   "tags": [],
   "// targets": "to see all targets run: nx show project react-demo --web",
   "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/packages/apps/react-demo"
+      },
+      "configurations": {
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
     "build-gh-pages": {
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
@@ -17,8 +30,7 @@
         "production": {
           "mode": "production"
         }
-      },
-      "dependsOn": ["^build"]
+      }
     }
   }
 }
